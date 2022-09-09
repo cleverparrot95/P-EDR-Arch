@@ -1,0 +1,722 @@
+<!-- ▄▄▄▄▄▄▄▄▄▄▄               ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄   ▄▄▄▄▄▄▄▄▄▄▄       ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄         ▄ 			-->
+<!--▐░░░░░░░░░░░▌             ▐░░░░░░░░░░░▌▐░░░░░░░░░░▌ ▐░░░░░░░░░░░▌     ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░▌       ▐░▌			-->
+<!--▐░█▀▀▀▀▀▀▀█░▌             ▐░█▀▀▀▀▀▀▀▀▀ ▐░█▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀▀▀▀█░▌     ▐░█▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀▀▀▀▀▀ ▐░▌       ▐░▌			-->
+<!--▐░▌       ▐░▌             ▐░▌          ▐░▌       ▐░▌▐░▌       ▐░▌     ▐░▌       ▐░▌▐░▌       ▐░▌▐░▌          ▐░▌       ▐░▌			-->
+<!--▐░█▄▄▄▄▄▄▄█░▌ ▄▄▄▄▄▄▄▄▄▄▄ ▐░█▄▄▄▄▄▄▄▄▄ ▐░▌       ▐░▌▐░█▄▄▄▄▄▄▄█░▌     ▐░█▄▄▄▄▄▄▄█░▌▐░█▄▄▄▄▄▄▄█░▌▐░▌          ▐░█▄▄▄▄▄▄▄█░▌			-->
+<!--▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░▌       ▐░▌▐░░░░░░░░░░░▌     ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░▌          ▐░░░░░░░░░░░▌			-->
+<!--▐░█▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀ ▐░█▀▀▀▀▀▀▀▀▀ ▐░▌       ▐░▌▐░█▀▀▀▀█░█▀▀      ▐░█▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀█░█▀▀ ▐░▌          ▐░█▀▀▀▀▀▀▀█░▌			-->
+<!--▐░▌                       ▐░▌          ▐░▌       ▐░▌▐░▌     ▐░▌       ▐░▌       ▐░▌▐░▌     ▐░▌  ▐░▌          ▐░▌       ▐░▌			-->
+<!--▐░▌                       ▐░█▄▄▄▄▄▄▄▄▄ ▐░█▄▄▄▄▄▄▄█░▌▐░▌      ▐░▌      ▐░▌       ▐░▌▐░▌      ▐░▌ ▐░█▄▄▄▄▄▄▄▄▄ ▐░▌       ▐░▌			-->
+<!--▐░▌                       ▐░░░░░░░░░░░▌▐░░░░░░░░░░▌ ▐░▌       ▐░▌     ▐░▌       ▐░▌▐░▌       ▐░▌▐░░░░░░░░░░░▌▐░▌       ▐░▌			-->
+<!-- ▀                         ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀   ▀         ▀       ▀         ▀  ▀         ▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀         ▀ 			-->
+<!--																					  ooo,    .____.								-->
+<!--																					 o`  o   /    |\________________				-->
+<!--																					o`   'oooo()  | ________   _   _)				-->
+<!--																					`oo   o` \    |/        | | | |					-->
+<!--																					  `ooo'   `____'         "-"|_|					-->
+<!--																																	-->
+<!--																							By: Fco Javier Perez					-->
+<!--																																	-->
+<!--			NOTICE: This is a sysmon configuration file manually created to cover a big load of existing malware behaviour			-->
+<!--							generated since begginings to 08/24/2022 (the last day this file was modified).							-->
+<!--					This doesn't mean that P-EDR is strictly thought to be used only with this sysmon config file.					-->
+<!--																																	-->
+<!--  ________________________________________________________________________________________________________________________________  -->
+<!--																																	-->
+<!--			Github: https://github.com/cleverparrot95/P-EDR-Arch																											-->
+<!--  ________________________________________________________________________________________________________________________________  -->
+<!--																																	-->
+<!--	In order to add new Rules which the EDR will act to, 																			-->
+<!--	a series of tags must be added inside the 'name' parameter, all separated by comas:												-->
+<!--			-MitreRef:  Reference to the Mitre ATT&CK tecnique (ex: T1127)															-->
+<!--			-Technique: Name of the said technique referenced by 'MitreRef' (ex: Trusted Developer Utilies Proxy Execution)			-->
+<!--			-Tactic:    Type of tacting referenced to this technique in Mitre ATT&CK (ex: Defense Evasion)							-->
+<!--			-Alert:		Alert generated which will be visible for the user and the SOC team (ex: Office Hacking Detected)			-->
+<!--			-Flags:		Flags that will tell the EDR what actions to take. Existing flags are:										-->
+<!--							-kp=y 	Kill process with child processes																-->
+<!--							-kpp=y 	Kill Parent Processes & all Child Processes														-->
+<!--							-kc=y   Kill network connections																		-->
+<!--							-ki=y   Kill Injected Thread																			-->
+<!--							-sd=y 	Shutdown System																					-->
+<!--							-fw=y	Add Windows Firewall Rule to block inbound/outbound network connectivity from process			-->
+<!--							-yara=y Yara Scan file																					-->
+<!--							-ydel=y Delete on Yara Detection																		-->
+<!--							-rf=y   Restore Deleted File																			-->
+<!--							-dp=y	RAM Dumping from a Process																		-->
+<!--							-si=y	System isolation																				-->
+<!--																																	-->
+<!--	It is possible to add as many flags to a rule as it is considered. The flags can be added to this types:						-->
+<!--																																	-->
+<!--							-Rule																									-->
+<!--							-ParentImage																							-->
+<!--							-Image																									-->
+<!--							-OriginalFileName																						-->
+<!--							-TargetFileName																							-->
+<!--							-TargetObject																							-->
+<!--							-CommandLine																							-->
+<!--							-SourcePort																								-->
+<!--							-DestinationPort																						-->
+<!--							-ImageLoaded																							-->
+<!--							-SourceImage																							-->
+<!--							-TargetImage																							-->
+<!--							-CallTrace																								-->
+<!--							-PipeName																								-->
+<!--							-GrantedAccess																							-->
+<!--																																	-->
+<!--	Full example: <Rule name="MitreRef=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Alert=Office Hacking 		-->
+<!--											Detected,kpp=y,kp=y" groupRelation="and">												-->
+<!--																																	-->
+<!--  ________________________________________________________________________________________________________________________________  -->
+
+<Sysmon schemaversion="4.82">
+	
+	<!-- General configuration -->
+	
+	<!--<CaptureClipboard/>-->
+	<HashAlgorithms>md5,sha256,imphash</HashAlgorithms>
+	<CheckRevocation>False</CheckRevocation>
+	<DnsLookup>True</DnsLookup>
+	<ArchiveDirectory>DeletedFiles</ArchiveDirectory>
+	
+	<!-- Rules -->
+	
+	<EventFiltering>
+	
+<!--	  _____                                _____                _                  _____            _           _      				-->
+<!--	 |  __ \                              / ____|              | |                |_   _|          | |         | |     				-->
+<!--	 | |__) | __ ___   ___ ___  ___ ___  | |     _ __ ___  __ _| |_ ___   ______    | |  _ __   ___| |_   _  __| | ___ 				-->
+<!--	 |  ___/ '__/ _ \ / __/ _ \/ __/ __| | |    | '__/ _ \/ _` | __/ _ \ |______|   | | | '_ \ / __| | | | |/ _` |/ _ \				-->
+<!--	 | |   | | | (_) | (_|  __/\__ \__ \ | |____| | |  __/ (_| | ||  __/           _| |_| | | | (__| | |_| | (_| |  __/				-->
+<!--	 |_|   |_|  \___/ \___\___||___/___/  \_____|_|  \___|\__,_|\__\___|          |_____|_| |_|\___|_|\__,_|\__,_|\___|				-->
+
+		<RuleGroup name="Info=ProcessCreate Include Group" groupRelation="or">
+			<ProcessCreate onmatch="include">
+				<Rule name="MitreRef=T1127,Technique=Trusted Developer Utilities Proxy Execution,Tactic=Defense Evasion,Alert=Office Hacking Detected,kpp=y,kp=y" groupRelation="and">
+					<ParentImage condition="contains any">winword.exe;excel.exe;powerpnt.exe;outlook.exe;msaccess.exe;mspub.exe;visio.exe;notepad.exe;wordpad.exe;eqnedt32.exe</ParentImage>
+					<OriginalFileName condition="is">MSBuild.exe</OriginalFileName>
+				</Rule>
+				
+				<Rule name="MitreRef=T1203,Technique=Exploitation for Client Execution,Tactic=Execution,Alert=Office Hacking Detected,kpp=y,kp=y" groupRelation="and">
+					<ParentImage condition="contains any">winword.exe;excel.exe;powerpnt.exe;outlook.exe;msaccess.exe;mspub.exe;visio.exe;notepad.exe;wordpad.exe;eqnedt32.exe</ParentImage>
+					<Image condition="contains any">cscript.exe;wscript.exe;cmd.exe;powershell.exe;bash.exe;scrcons.exe;schtasks.exe;hh.exe;regsvr32.exe;regsvcs.exe;sh.exe;wmic.exe;mshta.exe;rundll32.exe;msiexec.exe;forfiles.exe;scriptrunner.exe;mftrace.exe;AppVLP.exe;svchost.exe;MicroScMgmt.exe;FLTLDR.exe;wmic.exe;Microsoft.Workflow.Compiler.exe;atbroker.exe;bginfo.exe;certutil.exe;csi.exe;dnx.exe;cdb.exe;bitsadmin.exe;forfiles.exe;fsi.exe;ftp.exe;hostname.exe;gpresult.exe;ipconfig.exe;nbtstat.exe;ping.exe;pwsh.exe;qprocess.exe;quser.exe;qwinsta.exe;reg.exe;svchost.exe;installutil.exe;pwsh.exe;msxsl.exe;ieexec.exe</Image>
+					<CommandLine condition="excludes">C:\Windows\system32\spool\DRIVERS\</CommandLine>
+					<CommandLine condition="excludes">\AppData\Roaming\com.ringcentral.rcoutlook</CommandLine>
+					<CommandLine condition="excludes">Wget\MSRS.bat</CommandLine>
+					<CommandLine condition="excludes">PhotoViewer.dll</CommandLine>
+				</Rule>
+			</ProcessCreate>
+		</RuleGroup>
+	
+<!-- 	 _____                                _____                _                  ______          _           _      				-->
+<!-- 	|  __ \                              / ____|              | |                |  ____|        | |         | |     				-->
+<!-- 	| |__) | __ ___   ___ ___  ___ ___  | |     _ __ ___  __ _| |_ ___   ______  | |__  __  _____| |_   _  __| | ___ 				-->
+<!-- 	|  ___/ '__/ _ \ / __/ _ \/ __/ __| | |    | '__/ _ \/ _` | __/ _ \ |______| |  __| \ \/ / __| | | | |/ _` |/ _ \				-->			
+<!-- 	| |   | | | (_) | (_|  __/\__ \__ \ | |____| | |  __/ (_| | ||  __/          | |____ >  < (__| | |_| | (_| |  __/				-->
+<!-- 	|_|   |_|  \___/ \___\___||___/___/  \_____|_|  \___|\__,_|\__\___|          |______/_/\_\___|_|\__,_|\__,_|\___|				-->
+
+		<RuleGroup name="Info=ProcessCreate Exclude Group" groupRelation="or">
+			<ProcessCreate onmatch="exclude">
+			
+			</ProcessCreate>
+		</RuleGroup>
+	
+<!--	 ______ _ _       _____                _    _______ _                           _____            _           _      			-->
+<!--	|  ____(_) |     / ____|              | |  |__   __(_)                         |_   _|          | |         | |     			-->
+<!--	| |__   _| | ___| |     _ __ ___  __ _| |_ ___| |   _ _ __ ___   ___   ______    | |  _ __   ___| |_   _  __| | ___ 			-->
+<!--	|  __| | | |/ _ \ |    | '__/ _ \/ _` | __/ _ \ |  | | '_ ` _ \ / _ \ |______|   | | | '_ \ / __| | | | |/ _` |/ _ \			-->
+<!--	| |    | | |  __/ |____| | |  __/ (_| | ||  __/ |  | | | | | | |  __/           _| |_| | | | (__| | |_| | (_| |  __/			-->
+<!--	|_|    |_|_|\___|\_____|_|  \___|\__,_|\__\___|_|  |_|_| |_| |_|\___|          |_____|_| |_|\___|_|\__,_|\__,_|\___|			-->
+
+		<RuleGroup name="Info=FileCreateTime Include Group" groupRelation="or">
+			<FileCreateTime onmatch="include">
+				<Rule name="MitreRef=T1070.006,Technique=Indicator Removal on Host: Timestomp,Tactic=Defense Evasion,Alert=A process changed a file creation time" groupRelation="and">
+					<Image condition="end with">SysmonSimulator.exe</Image>
+					<TargetFilename condition="end with">SysmonCreateFileTime.txt</TargetFilename>
+				</Rule>
+			</FileCreateTime>
+		</RuleGroup>
+
+<!--  	 ______ _ _       _____                _    _______ _                           ______          _           _      				-->
+<!-- 	|  ____(_) |     / ____|              | |  |__   __(_)                         |  ____|        | |         | |     				-->
+<!-- 	| |__   _| | ___| |     _ __ ___  __ _| |_ ___| |   _ _ __ ___   ___   ______  | |__  __  _____| |_   _  __| | ___ 				-->
+<!-- 	|  __| | | |/ _ \ |    | '__/ _ \/ _` | __/ _ \ |  | | '_ ` _ \ / _ \ |______| |  __| \ \/ / __| | | | |/ _` |/ _ \				-->
+<!-- 	| |    | | |  __/ |____| | |  __/ (_| | ||  __/ |  | | | | | | |  __/          | |____ >  < (__| | |_| | (_| |  __/				-->
+<!-- 	|_|    |_|_|\___|\_____|_|  \___|\__,_|\__\___|_|  |_|_| |_| |_|\___|          |______/_/\_\___|_|\__,_|\__,_|\___|				-->
+                                                                                                                    
+		<RuleGroup name="Info=FileCreateTime Exclude Group" groupRelation="or">
+			<FileCreateTime onmatch="exclude">
+			
+			</FileCreateTime>
+		</RuleGroup>
+
+<!-- 	 _   _      _                      _     _____                            _              _____            _           _      	-->
+<!-- 	| \ | |    | |                    | |   / ____|                          | |            |_   _|          | |         | |     	-->
+<!-- 	|  \| | ___| |___      _____  _ __| | _| |     ___  _ __  _ __   ___  ___| |_   ______    | |  _ __   ___| |_   _  __| | ___ 	-->
+<!-- 	| . ` |/ _ \ __\ \ /\ / / _ \| '__| |/ / |    / _ \| '_ \| '_ \ / _ \/ __| __| |______|   | | | '_ \ / __| | | | |/ _` |/ _ \	-->
+<!-- 	| |\  |  __/ |_ \ V  V / (_) | |  |   <| |___| (_) | | | | | | |  __/ (__| |_            _| |_| | | | (__| | |_| | (_| |  __/	-->
+<!-- 	|_| \_|\___|\__| \_/\_/ \___/|_|  |_|\_\\_____\___/|_| |_|_| |_|\___|\___|\__|          |_____|_| |_|\___|_|\__,_|\__,_|\___|	-->
+
+		<RuleGroup name="Info=NetworkConnect Include Group" groupRelation="or">
+			<NetworkConnect onmatch="include">
+				<Rule name="MitreRef=T1046,Technique=Network Service Discovery,Tactic=Discovery,Alert=Port Scanning Detected" groupRelation="and">
+					<DestinationPort condition="is">31337</DestinationPort>
+				</Rule>
+			</NetworkConnect>
+		</RuleGroup>
+
+<!-- 	 _   _      _                      _     _____                            _              ______          _           _      	-->
+<!-- 	| \ | |    | |                    | |   / ____|                          | |            |  ____|        | |         | |     	-->
+<!-- 	|  \| | ___| |___      _____  _ __| | _| |     ___  _ __  _ __   ___  ___| |_   ______  | |__  __  _____| |_   _  __| | ___ 	-->
+<!-- 	| . ` |/ _ \ __\ \ /\ / / _ \| '__| |/ / |    / _ \| '_ \| '_ \ / _ \/ __| __| |______| |  __| \ \/ / __| | | | |/ _` |/ _ \	-->
+<!-- 	| |\  |  __/ |_ \ V  V / (_) | |  |   <| |___| (_) | | | | | | |  __/ (__| |_           | |____ >  < (__| | |_| | (_| |  __/	-->
+<!-- 	|_| \_|\___|\__| \_/\_/ \___/|_|  |_|\_\\_____\___/|_| |_|_| |_|\___|\___|\__|          |______/_/\_\___|_|\__,_|\__,_|\___|	-->
+
+		<RuleGroup name="Info=NetworkConnect Exclude Group" groupRelation="or">
+			<NetworkConnect onmatch="exclude">
+			
+			</NetworkConnect>
+		</RuleGroup>
+
+<!-- 	 _____                          _______                  _             _                  _____            _           _      	-->
+<!-- 	|  __ \                        |__   __|                (_)           | |                |_   _|          | |         | |     	-->
+<!-- 	| |__) | __ ___   ___ ___  ___ ___| | ___ _ __ _ __ ___  _ _ __   __ _| |_ ___   ______    | |  _ __   ___| |_   _  __| | ___ 	-->
+<!-- 	|  ___/ '__/ _ \ / __/ _ \/ __/ __| |/ _ \ '__| '_ ` _ \| | '_ \ / _` | __/ _ \ |______|   | | | '_ \ / __| | | | |/ _` |/ _ \	-->
+<!-- 	| |   | | | (_) | (_|  __/\__ \__ \ |  __/ |  | | | | | | | | | | (_| | ||  __/           _| |_| | | | (__| | |_| | (_| |  __/	-->
+<!-- 	|_|   |_|  \___/ \___\___||___/___/_|\___|_|  |_| |_| |_|_|_| |_|\__,_|\__\___|          |_____|_| |_|\___|_|\__,_|\__,_|\___|	-->
+
+		<RuleGroup name="Info=ProcessTerminate Include Group" groupRelation="or">
+			<ProcessTerminate onmatch="include">
+				<Rule name="MitreRef=T1489,Technique=Service Stop,Tactic=Impact,Alert=PING.EXE was terminated" groupRelation="and">
+					<Image condition="end with">PING.EXE</Image>
+				</Rule>
+			</ProcessTerminate>
+		</RuleGroup>
+		
+<!-- 	 _____                          _______                  _             _                  ______          _           _      	-->
+<!-- 	|  __ \                        |__   __|                (_)           | |                |  ____|        | |         | |     	-->
+<!-- 	| |__) | __ ___   ___ ___  ___ ___| | ___ _ __ _ __ ___  _ _ __   __ _| |_ ___   ______  | |__  __  _____| |_   _  __| | ___ 	-->
+<!-- 	|  ___/ '__/ _ \ / __/ _ \/ __/ __| |/ _ \ '__| '_ ` _ \| | '_ \ / _` | __/ _ \ |______| |  __| \ \/ / __| | | | |/ _` |/ _ \	-->
+<!-- 	| |   | | | (_) | (_|  __/\__ \__ \ |  __/ |  | | | | | | | | | | (_| | ||  __/          | |____ >  < (__| | |_| | (_| |  __/	-->
+<!-- 	|_|   |_|  \___/ \___\___||___/___/_|\___|_|  |_| |_| |_|_|_| |_|\__,_|\__\___|          |______/_/\_\___|_|\__,_|\__,_|\___|	-->
+
+		<RuleGroup name="Info=ProcessTerminate Exclude Group" groupRelation="or">
+			<ProcessTerminate onmatch="exclude">
+			
+			</ProcessTerminate>
+		</RuleGroup>
+
+<!-- 	 _____       _                _                     _            _____            _           _      							-->
+<!-- 	|  __ \     (_)              | |                   | |          |_   _|          | |         | |     							-->
+<!-- 	| |  | |_ __ ___   _____ _ __| |     ___   __ _  __| |  ______    | |  _ __   ___| |_   _  __| | ___ 							-->
+<!-- 	| |  | | '__| \ \ / / _ \ '__| |    / _ \ / _` |/ _` | |______|   | | | '_ \ / __| | | | |/ _` |/ _ \							-->
+<!-- 	| |__| | |  | |\ V /  __/ |  | |___| (_) | (_| | (_| |           _| |_| | | | (__| | |_| | (_| |  __/							-->
+<!-- 	|_____/|_|  |_| \_/ \___|_|  |______\___/ \__,_|\__,_|          |_____|_| |_|\___|_|\__,_|\__,_|\___|							-->
+
+		<RuleGroup name="Info=DriverLoad Include Group" groupRelation="or">
+			<DriverLoad onmatch="include">
+			
+			</DriverLoad>
+		</RuleGroup>
+
+<!-- 	 _____       _                _                     _            ______          _           _      							-->
+<!-- 	|  __ \     (_)              | |                   | |          |  ____|        | |         | |     							-->
+<!-- 	| |  | |_ __ ___   _____ _ __| |     ___   __ _  __| |  ______  | |__  __  _____| |_   _  __| | ___ 							-->
+<!-- 	| |  | | '__| \ \ / / _ \ '__| |    / _ \ / _` |/ _` | |______| |  __| \ \/ / __| | | | |/ _` |/ _ \							-->
+<!-- 	| |__| | |  | |\ V /  __/ |  | |___| (_) | (_| | (_| |          | |____ >  < (__| | |_| | (_| |  __/							-->
+<!-- 	|_____/|_|  |_| \_/ \___|_|  |______\___/ \__,_|\__,_|          |______/_/\_\___|_|\__,_|\__,_|\___|							-->
+                                                                                                     
+		<RuleGroup name="Info=DriverLoad Include Group" groupRelation="or">
+			<DriverLoad onmatch="exclude">
+			
+			</DriverLoad>
+		</RuleGroup>
+
+<!-- 	 _____                            _                     _            _____            _           _      						-->
+<!-- 	|_   _|                          | |                   | |          |_   _|          | |         | |     						-->
+<!-- 	  | |  _ __ ___   __ _  __ _  ___| |     ___   __ _  __| |  ______    | |  _ __   ___| |_   _  __| | ___ 						-->
+<!-- 	  | | | '_ ` _ \ / _` |/ _` |/ _ \ |    / _ \ / _` |/ _` | |______|   | | | '_ \ / __| | | | |/ _` |/ _ \						-->
+<!-- 	 _| |_| | | | | | (_| | (_| |  __/ |___| (_) | (_| | (_| |           _| |_| | | | (__| | |_| | (_| |  __/						-->
+<!-- 	|_____|_| |_| |_|\__,_|\__, |\___|______\___/ \__,_|\__,_|          |_____|_| |_|\___|_|\__,_|\__,_|\___|						-->
+<!--  	                       __/ |                                                                            						-->
+<!--  	                      |___/                                                                             						-->
+
+		<RuleGroup name="Info=ImageLoad Include Group" groupRelation="or">
+			<ImageLoad onmatch="include">
+				<Rule name="MitreRef=T1574.002,Technique=DLL Side-Loading,Tactic=Persistence Privilege Escalation Defense Evasion,Alert=DLL Side-Loading,kp=y" groupRelation="and">
+					<Image condition="end with">SysmonSimulator.exe</Image>	
+					<ImageLoaded condition="end with">crypt32.dll</ImageLoaded>
+				</Rule>
+			</ImageLoad>
+		</RuleGroup>
+
+<!-- 	 _____                            _                     _            ______          _           _      						-->
+<!-- 	|_   _|                          | |                   | |          |  ____|        | |         | |     						-->
+<!-- 	  | |  _ __ ___   __ _  __ _  ___| |     ___   __ _  __| |  ______  | |__  __  _____| |_   _  __| | ___ 						-->
+<!-- 	  | | | '_ ` _ \ / _` |/ _` |/ _ \ |    / _ \ / _` |/ _` | |______| |  __| \ \/ / __| | | | |/ _` |/ _ \						-->
+<!-- 	 _| |_| | | | | | (_| | (_| |  __/ |___| (_) | (_| | (_| |          | |____ >  < (__| | |_| | (_| |  __/						-->
+<!-- 	|_____|_| |_| |_|\__,_|\__, |\___|______\___/ \__,_|\__,_|          |______/_/\_\___|_|\__,_|\__,_|\___|						-->
+<!-- 	                        __/ |                                                                           						-->
+<!-- 	                       |___/                                                                            						-->
+
+		<RuleGroup name="Info=ImageLoad Exclude Group" groupRelation="or">
+			<ImageLoad onmatch="exclude">
+			
+			</ImageLoad>
+		</RuleGroup>
+
+<!--   	  _____                _       _____                      _    _______ _                        _            _____            _           _     	--> 
+<!--  	 / ____|              | |     |  __ \                    | |  |__   __| |                      | |          |_   _|          | |         | |     	-->
+<!-- 	| |     _ __ ___  __ _| |_ ___| |__) |___ _ __ ___   ___ | |_ ___| |  | |__  _ __ ___  __ _  __| |  ______    | |  _ __   ___| |_   _  __| | ___ 	-->
+<!-- 	| |    | '__/ _ \/ _` | __/ _ \  _  // _ \ '_ ` _ \ / _ \| __/ _ \ |  | '_ \| '__/ _ \/ _` |/ _` | |______|   | | | '_ \ / __| | | | |/ _` |/ _ \	-->
+<!-- 	| |____| | |  __/ (_| | ||  __/ | \ \  __/ | | | | | (_) | ||  __/ |  | | | | | |  __/ (_| | (_| |           _| |_| | | | (__| | |_| | (_| |  __/	-->
+<!--  	 \_____|_|  \___|\__,_|\__\___|_|  \_\___|_| |_| |_|\___/ \__\___|_|  |_| |_|_|  \___|\__,_|\__,_|          |_____|_| |_|\___|_|\__,_|\__,_|\___|	-->
+
+		<RuleGroup name="Info=CreateRemoteThread Include Group" groupRelation="or">
+			<CreateRemoteThread onmatch="include">
+				<Rule name="MitreRef=T1055,Technique=Process Injection,Tactic=Defense Evasion Privilege Escalation,Alert=Malicious Thread generated in Process,kp=y" groupRelation="and">
+					<SourceImage condition="end with">SysmonSimulator.exe</SourceImage>		
+				</Rule>
+			</CreateRemoteThread>
+		</RuleGroup>
+
+<!--   	  _____                _       _____                      _    _______ _                        _            ______          _           _      	-->
+<!--  	 / ____|              | |     |  __ \                    | |  |__   __| |                      | |          |  ____|        | |         | |     	-->
+<!-- 	| |     _ __ ___  __ _| |_ ___| |__) |___ _ __ ___   ___ | |_ ___| |  | |__  _ __ ___  __ _  __| |  ______  | |__  __  _____| |_   _  __| | ___ 	-->
+<!-- 	| |    | '__/ _ \/ _` | __/ _ \  _  // _ \ '_ ` _ \ / _ \| __/ _ \ |  | '_ \| '__/ _ \/ _` |/ _` | |______| |  __| \ \/ / __| | | | |/ _` |/ _ \	-->
+<!-- 	| |____| | |  __/ (_| | ||  __/ | \ \  __/ | | | | | (_) | ||  __/ |  | | | | | |  __/ (_| | (_| |          | |____ >  < (__| | |_| | (_| |  __/	-->
+<!--  	 \_____|_|  \___|\__,_|\__\___|_|  \_\___|_| |_| |_|\___/ \__\___|_|  |_| |_|_|  \___|\__,_|\__,_|          |______/_/\_\___|_|\__,_|\__,_|\___|	-->
+
+		<RuleGroup name="Info=CreateRemoteThread Exclude Group" groupRelation="or">
+			<CreateRemoteThread onmatch="exclude">
+				
+			</CreateRemoteThread>
+		</RuleGroup>
+          
+<!-- 	 _____                                            _____                _            _____            _           _      		-->
+<!-- 	|  __ \                /\                        |  __ \              | |          |_   _|          | |         | |     		-->
+<!-- 	| |__) |__ ___      __/  \   ___ ___ ___  ___ ___| |__) |___  __ _  __| |  ______    | |  _ __   ___| |_   _  __| | ___ 		-->
+<!-- 	|  _  // _` \ \ /\ / / /\ \ / __/ __/ _ \/ __/ __|  _  // _ \/ _` |/ _` | |______|   | | | '_ \ / __| | | | |/ _` |/ _ \		-->
+<!-- 	| | \ \ (_| |\ V  V / ____ \ (_| (_|  __/\__ \__ \ | \ \  __/ (_| | (_| |           _| |_| | | | (__| | |_| | (_| |  __/		-->
+<!-- 	|_|  \_\__,_| \_/\_/_/    \_\___\___\___||___/___/_|  \_\___|\__,_|\__,_|          |_____|_| |_|\___|_|\__,_|\__,_|\___|		-->
+
+		<RuleGroup name="Info=RawAccessRead Include Group" groupRelation="or">
+			<RawAccessRead onmatch="include">
+				<Rule name="MitreRef=T1006,Technique=Direct Volume Access,Tactic=Defense Evasion,Alert=Detected Direct Access to Logical Volumes" groupRelation="and">
+					<Image condition="end with">SysmonSimulator.exe</Image>
+				</Rule>
+			</RawAccessRead>
+		</RuleGroup>
+
+<!-- 	 _____                                            _____                _            ______          _           _      			-->
+<!-- 	|  __ \                /\                        |  __ \              | |          |  ____|        | |         | |     			-->
+<!-- 	| |__) |__ ___      __/  \   ___ ___ ___  ___ ___| |__) |___  __ _  __| |  ______  | |__  __  _____| |_   _  __| | ___ 			-->
+<!-- 	|  _  // _` \ \ /\ / / /\ \ / __/ __/ _ \/ __/ __|  _  // _ \/ _` |/ _` | |______| |  __| \ \/ / __| | | | |/ _` |/ _ \			-->
+<!-- 	| | \ \ (_| |\ V  V / ____ \ (_| (_|  __/\__ \__ \ | \ \  __/ (_| | (_| |          | |____ >  < (__| | |_| | (_| |  __/			-->
+<!-- 	|_|  \_\__,_| \_/\_/_/    \_\___\___\___||___/___/_|  \_\___|\__,_|\__,_|          |______/_/\_\___|_|\__,_|\__,_|\___|			-->
+
+		<RuleGroup name="Info=RawAccessRead Exclude Group" groupRelation="or">
+			<RawAccessRead onmatch="exclude">
+			
+			</RawAccessRead>
+		</RuleGroup>
+
+<!-- 	 _____                                                                      _____            _           _      				-->
+<!-- 	|  __ \                               /\                                   |_   _|          | |         | |     				-->
+<!-- 	| |__) | __ ___   ___ ___  ___ ___   /  \   ___ ___ ___  ___ ___   ______    | |  _ __   ___| |_   _  __| | ___ 				-->
+<!-- 	|  ___/ '__/ _ \ / __/ _ \/ __/ __| / /\ \ / __/ __/ _ \/ __/ __| |______|   | | | '_ \ / __| | | | |/ _` |/ _ \				-->
+<!-- 	| |   | | | (_) | (_|  __/\__ \__ \/ ____ \ (_| (_|  __/\__ \__ \           _| |_| | | | (__| | |_| | (_| |  __/				-->
+<!-- 	|_|   |_|  \___/ \___\___||___/___/_/    \_\___\___\___||___/___/          |_____|_| |_|\___|_|\__,_|\__,_|\___|				-->
+
+		<RuleGroup name="Info=ProcessAccess Include Group" groupRelation="or">
+			<ProcessAccess onmatch="include">
+				<Rule name="MitreRef=T1003.001,Technique=OS Credential Dumping: LSASS Memory,Tactic=Credential Access,Alert=Credential dumping performed by using function MiniDumpWriteDump from dbgcore.dll" groupRelation="and">
+					<SourceImage condition="end with">SysmonSimulator.exe</SourceImage>
+				</Rule>
+			</ProcessAccess>
+		</RuleGroup>
+
+<!-- 	 _____                                                                      ______          _           _      					-->
+<!-- 	|  __ \                               /\                                   |  ____|        | |         | |     					-->
+<!-- 	| |__) | __ ___   ___ ___  ___ ___   /  \   ___ ___ ___  ___ ___   ______  | |__  __  _____| |_   _  __| | ___ 					-->
+<!-- 	|  ___/ '__/ _ \ / __/ _ \/ __/ __| / /\ \ / __/ __/ _ \/ __/ __| |______| |  __| \ \/ / __| | | | |/ _` |/ _ \					-->
+<!-- 	| |   | | | (_) | (_|  __/\__ \__ \/ ____ \ (_| (_|  __/\__ \__ \          | |____ >  < (__| | |_| | (_| |  __/					-->
+<!-- 	|_|   |_|  \___/ \___\___||___/___/_/    \_\___\___\___||___/___/          |______/_/\_\___|_|\__,_|\__,_|\___|					-->
+
+		<RuleGroup name="Info=ProcessAccess Exclude Group" groupRelation="or">
+			<ProcessAccess onmatch="exclude">
+			
+			</ProcessAccess>
+		</RuleGroup>
+
+<!-- 	 ______ _ _       _____                _                  _____            _           _      									-->
+<!-- 	|  ____(_) |     / ____|              | |                |_   _|          | |         | |     									-->
+<!-- 	| |__   _| | ___| |     _ __ ___  __ _| |_ ___   ______    | |  _ __   ___| |_   _  __| | ___ 									-->
+<!-- 	|  __| | | |/ _ \ |    | '__/ _ \/ _` | __/ _ \ |______|   | | | '_ \ / __| | | | |/ _` |/ _ \									-->
+<!-- 	| |    | | |  __/ |____| | |  __/ (_| | ||  __/           _| |_| | | | (__| | |_| | (_| |  __/									-->
+<!-- 	|_|    |_|_|\___|\_____|_|  \___|\__,_|\__\___|          |_____|_| |_|\___|_|\__,_|\__,_|\___|									-->
+
+		<RuleGroup name="Info=FileCreate Include Group" groupRelation="or">
+			<FileCreate onmatch="include">
+				<Rule name="MitreRef=T1548,Technique=Abuse Elevation Control Mechanism,Tactic=Privilege Escalation Defense Evasion,Alert=SysmonSimulator File Creation" groupRelation="and">
+					<Image condition="end with">SysmonSimulator.exe</Image>
+					<TargetFilename condition="end with">NewFile.bat</TargetFilename>
+				</Rule>
+				
+				<Rule name="MitreRef=T1548,Technique=Abuse Elevation Control Mechanism,Tactic=Privilege Escalation Defense Evasion,Alert=Created file in vulnerable folder (C:\Users\Public\)" groupRelation="and">
+					<TargetFilename condition="begin with">C:\Users\Public\</TargetFilename>
+				</Rule>
+			</FileCreate>
+		</RuleGroup>
+
+<!-- 	 ______ _ _       _____                _                  ______          _           _      									-->
+<!-- 	|  ____(_) |     / ____|              | |                |  ____|        | |         | |     									-->
+<!-- 	| |__   _| | ___| |     _ __ ___  __ _| |_ ___   ______  | |__  __  _____| |_   _  __| | ___ 									-->
+<!-- 	|  __| | | |/ _ \ |    | '__/ _ \/ _` | __/ _ \ |______| |  __| \ \/ / __| | | | |/ _` |/ _ \									-->
+<!-- 	| |    | | |  __/ |____| | |  __/ (_| | ||  __/          | |____ >  < (__| | |_| | (_| |  __/									-->
+<!-- 	|_|    |_|_|\___|\_____|_|  \___|\__,_|\__\___|          |______/_/\_\___|_|\__,_|\__,_|\___|									-->
+
+		<RuleGroup name="Info=FileCreate Exclude Group" groupRelation="or">
+			<FileCreate onmatch="exclude">
+			
+			</FileCreate>
+		</RuleGroup>                                                                                            		
+
+<!-- 	 _____            _     _              ______               _              _____            _           _      					-->
+<!-- 	|  __ \          (_)   | |            |  ____|             | |            |_   _|          | |         | |     					-->
+<!-- 	| |__) |___  __ _ _ ___| |_ _ __ _   _| |____   _____ _ __ | |_   ______    | |  _ __   ___| |_   _  __| | ___ 					-->
+<!-- 	|  _  // _ \/ _` | / __| __| '__| | | |  __\ \ / / _ \ '_ \| __| |______|   | | | '_ \ / __| | | | |/ _` |/ _ \					-->
+<!-- 	| | \ \  __/ (_| | \__ \ |_| |  | |_| | |___\ V /  __/ | | | |_            _| |_| | | | (__| | |_| | (_| |  __/					-->
+<!-- 	|_|  \_\___|\__, |_|___/\__|_|   \__, |______\_/ \___|_| |_|\__|          |_____|_| |_|\___|_|\__,_|\__,_|\___|					-->
+<!-- 	             __/ |                __/ |                                                                        					-->
+<!-- 	            |___/                |___/                                                                         					-->
+
+		<RuleGroup name="Info=RegistryEvent Include Group" groupRelation="or">
+			<RegistryEvent onmatch="include">
+				<Rule name="MitreRef=T1112,Technique=Modify Registry,Tactic=Defense Evasion,Alert=Registry manipulation from Process - Create" groupRelation="and">
+					<Image condition="end with">SysmonSimulator.exe</Image>
+					<TargetObject condition="end with">TestSysmon</TargetObject>
+					<EventType condition="begin with">CreateKey</EventType>
+				</Rule>
+				
+				<Rule name="MitreRef=T1112,Technique=Modify Registry,Tactic=Defense Evasion,Alert=Registry manipulation from Process - SetValue" groupRelation="and">
+					<Image condition="end with">SysmonSimulator.exe</Image>
+					<TargetObject condition="end with">TestSysmon\Message</TargetObject>
+					<EventType condition="begin with">SetValue</EventType>
+				</Rule>
+				
+				<Rule name="MitreRef=T1112,Technique=Modify Registry,Tactic=Defense Evasion,Alert=Registry manipulation from Process - RenameKey" groupRelation="and">
+					<Image condition="end with">SysmonSimulator.exe</Image>
+					<NewName condition="contains">RegistrySysmonTestingRenamed</NewName>
+					<EventType condition="begin with">RenameKey</EventType>
+				</Rule>
+			</RegistryEvent>
+		</RuleGroup>
+
+<!-- 	 _____            _     _              ______               _              ______          _           _      					-->
+<!-- 	|  __ \          (_)   | |            |  ____|             | |            |  ____|        | |         | |     					-->
+<!-- 	| |__) |___  __ _ _ ___| |_ _ __ _   _| |____   _____ _ __ | |_   ______  | |__  __  _____| |_   _  __| | ___ 					-->
+<!-- 	|  _  // _ \/ _` | / __| __| '__| | | |  __\ \ / / _ \ '_ \| __| |______| |  __| \ \/ / __| | | | |/ _` |/ _ \					-->
+<!-- 	| | \ \  __/ (_| | \__ \ |_| |  | |_| | |___\ V /  __/ | | | |_           | |____ >  < (__| | |_| | (_| |  __/					-->
+<!-- 	|_|  \_\___|\__, |_|___/\__|_|   \__, |______\_/ \___|_| |_|\__|          |______/_/\_\___|_|\__,_|\__,_|\___|					-->
+<!-- 	             __/ |                __/ |                                                                       					-->
+<!-- 	            |___/                |___/                                                                        					-->
+
+		<RuleGroup name="Info=RegistryEvent Exclude Group" groupRelation="or">
+			<RegistryEvent onmatch="exclude">
+			
+			</RegistryEvent>
+		</RuleGroup>
+
+<!-- 	 ______ _ _       _____                _        _____ _                            _    _           _                _____            _           _      	-->
+<!-- 	|  ____(_) |     / ____|              | |      / ____| |                          | |  | |         | |              |_   _|          | |         | |     	-->
+<!-- 	| |__   _| | ___| |     _ __ ___  __ _| |_ ___| (___ | |_ _ __ ___  __ _ _ __ ___ | |__| | __ _ ___| |__    ______    | |  _ __   ___| |_   _  __| | ___ 	-->
+<!-- 	|  __| | | |/ _ \ |    | '__/ _ \/ _` | __/ _ \\___ \| __| '__/ _ \/ _` | '_ ` _ \|  __  |/ _` / __| '_ \  |______|   | | | '_ \ / __| | | | |/ _` |/ _ \	-->
+<!-- 	| |    | | |  __/ |____| | |  __/ (_| | ||  __/____) | |_| | |  __/ (_| | | | | | | |  | | (_| \__ \ | | |           _| |_| | | | (__| | |_| | (_| |  __/	-->
+<!-- 	|_|    |_|_|\___|\_____|_|  \___|\__,_|\__\___|_____/ \__|_|  \___|\__,_|_| |_| |_|_|  |_|\__,_|___/_| |_|          |_____|_| |_|\___|_|\__,_|\__,_|\___|	-->
+
+		<RuleGroup name="Info=FileCreateStreamHash Include Group" groupRelation="or">
+			<FileCreateStreamHash onmatch="include">
+				<Rule name="MitreRef=T1105,Technique=Ingress Tool Transfer,Tactic=Command and Control,Alert=Dangerous Stream Hash Detected" groupRelation="and">
+					<Image condition="end with">SysmonSimulator.exe</Image>
+					<TargetFilename condition="end with">Streamfile.txt:SysmonStream</TargetFilename>
+				</Rule>
+			</FileCreateStreamHash>
+		</RuleGroup>
+		
+<!-- 	 ______ _ _       _____                _        _____ _                            _    _           _                ______          _           _      	-->
+<!-- 	|  ____(_) |     / ____|              | |      / ____| |                          | |  | |         | |              |  ____|        | |         | |     	-->
+<!-- 	| |__   _| | ___| |     _ __ ___  __ _| |_ ___| (___ | |_ _ __ ___  __ _ _ __ ___ | |__| | __ _ ___| |__    ______  | |__  __  _____| |_   _  __| | ___ 	-->
+<!-- 	|  __| | | |/ _ \ |    | '__/ _ \/ _` | __/ _ \\___ \| __| '__/ _ \/ _` | '_ ` _ \|  __  |/ _` / __| '_ \  |______| |  __| \ \/ / __| | | | |/ _` |/ _ \	-->
+<!-- 	| |    | | |  __/ |____| | |  __/ (_| | ||  __/____) | |_| | |  __/ (_| | | | | | | |  | | (_| \__ \ | | |          | |____ >  < (__| | |_| | (_| |  __/	-->
+<!-- 	|_|    |_|_|\___|\_____|_|  \___|\__,_|\__\___|_____/ \__|_|  \___|\__,_|_| |_| |_|_|  |_|\__,_|___/_| |_|          |______/_/\_\___|_|\__,_|\__,_|\___|	-->
+
+		<RuleGroup name="Info=FileCreateStreamHash Exclude Group" groupRelation="or">
+			<FileCreateStreamHash onmatch="exclude">
+			
+			</FileCreateStreamHash>
+		</RuleGroup>
+		
+<!-- 	 _____ _            ______               _              _____            _           _      		-->
+<!-- 	|  __ (_)          |  ____|             | |            |_   _|          | |         | |     		-->
+<!-- 	| |__) | _ __   ___| |____   _____ _ __ | |_   ______    | |  _ __   ___| |_   _  __| | ___ 		-->
+<!-- 	|  ___/ | '_ \ / _ \  __\ \ / / _ \ '_ \| __| |______|   | | | '_ \ / __| | | | |/ _` |/ _ \		-->
+<!-- 	| |   | | |_) |  __/ |___\ V /  __/ | | | |_            _| |_| | | | (__| | |_| | (_| |  __/		-->
+<!-- 	|_|   |_| .__/ \___|______\_/ \___|_| |_|\__|          |_____|_| |_|\___|_|\__,_|\__,_|\___|		-->
+<!--  	        | |                                                                                 		-->
+<!--     	    |_|                                                                                 		-->
+
+		<RuleGroup name="Info=PipeEvent Include Group" groupRelation="or">
+			<PipeEvent onmatch="include">
+				<Rule name="MitreRef=T1570,Technique=Lateral Tool Transfer,Tactic=Lateral Movement,Alert=Lateral Movement Identification" groupRelation="and">
+					<Image condition="end with">SysmonSimulator.exe</Image>
+					<PipeName condition="end with">\sysmontestnamedpipe</PipeName>
+					<EventType condition="begin with">CreatePipe</EventType>
+				</Rule>
+				
+				<Rule name="MitreRef=T1570,Technique=Lateral Tool Transfer,Tactic=Lateral Movement,Alert=Lateral Movement Identification" groupRelation="and">
+					<Image condition="end with">SysmonSimulator.exe</Image>
+					<PipeName condition="end with">\sysmontestconnectpipe</PipeName>
+					<EventType condition="begin with">ConnectPipe</EventType>
+				</Rule>
+			</PipeEvent>
+		</RuleGroup>
+		
+<!-- 	 _____ _            ______               _              ______          _           _      		-->
+<!-- 	|  __ (_)          |  ____|             | |            |  ____|        | |         | |     		-->
+<!-- 	| |__) | _ __   ___| |____   _____ _ __ | |_   ______  | |__  __  _____| |_   _  __| | ___ 		-->
+<!-- 	|  ___/ | '_ \ / _ \  __\ \ / / _ \ '_ \| __| |______| |  __| \ \/ / __| | | | |/ _` |/ _ \		-->
+<!-- 	| |   | | |_) |  __/ |___\ V /  __/ | | | |_           | |____ >  < (__| | |_| | (_| |  __/		-->
+<!-- 	|_|   |_| .__/ \___|______\_/ \___|_| |_|\__|          |______/_/\_\___|_|\__,_|\__,_|\___|		-->
+<!--  	        | |                                                                                		-->
+<!--   	        |_|                                                                                		-->
+
+		<RuleGroup name="Info=PipeEvent Exclude Group" groupRelation="or">
+			<PipeEvent onmatch="exclude">
+			
+			</PipeEvent>
+		</RuleGroup>
+
+<!-- 	__          __        _ ______               _              _____            _           _      	-->
+<!-- 	\ \        / /       (_)  ____|             | |            |_   _|          | |         | |     	-->
+<!--  	 \ \  /\  / / __ ___  _| |____   _____ _ __ | |_   ______    | |  _ __   ___| |_   _  __| | ___ 	-->
+<!--   	  \ \/  \/ / '_ ` _ \| |  __\ \ / / _ \ '_ \| __| |______|   | | | '_ \ / __| | | | |/ _` |/ _ \	-->
+<!--       \  /\  /| | | | | | | |___\ V /  __/ | | | |_            _| |_| | | | (__| | |_| | (_| |  __/	-->
+<!--     	\/  \/ |_| |_| |_|_|______\_/ \___|_| |_|\__|          |_____|_| |_|\___|_|\__,_|\__,_|\___|	-->
+
+		<RuleGroup name="Info=WmiEvent Include Group" groupRelation="or">
+			<WmiEvent onmatch="include">
+				<!-- ID 19 -->
+				<Rule name="MitreRef=T1047,Technique=Windows Management Instrumentation,Tactic=Execution,Alert=Windows Management Instrumentation" groupRelation="and">
+					<EventType condition="begin with">WmiFilterEvent</EventType>
+				</Rule>
+				<!-- ID 20 -->
+				<Rule name="MitreRef=T1047,Technique=Windows Management Instrumentation,Tactic=Execution,Alert=Windows Management Instrumentation" groupRelation="and">
+					<EventType condition="begin with">WmiConsumerEvent</EventType>
+				</Rule>
+				<!-- ID 21 -->
+				<Rule name="MitreRef=T1047,Technique=Windows Management Instrumentation,Tactic=Execution,Alert=Windows Management Instrumentation" groupRelation="and">
+					<EventType condition="begin with">WmiBindingEvent</EventType>
+				</Rule>
+			</WmiEvent>
+		</RuleGroup>
+            
+<!-- 	__          __        _ ______               _              ______          _           _      		-->
+<!-- 	\ \        / /       (_)  ____|             | |            |  ____|        | |         | |     		-->
+<!--  	 \ \  /\  / / __ ___  _| |____   _____ _ __ | |_   ______  | |__  __  _____| |_   _  __| | ___ 		-->
+<!--   	  \ \/  \/ / '_ ` _ \| |  __\ \ / / _ \ '_ \| __| |______| |  __| \ \/ / __| | | | |/ _` |/ _ \		-->
+<!--       \  /\  /| | | | | | | |___\ V /  __/ | | | |_           | |____ >  < (__| | |_| | (_| |  __/		-->
+<!--     	\/  \/ |_| |_| |_|_|______\_/ \___|_| |_|\__|          |______/_/\_\___|_|\__,_|\__,_|\___|		-->
+
+		<RuleGroup name="Info=WmiEvent Exclude Group" groupRelation="or">
+			<WmiEvent onmatch="exclude">
+			
+			</WmiEvent>
+		</RuleGroup>
+
+<!-- 	 _____  _   _  _____  ____                                   _____            _           _      	-->
+<!-- 	|  __ \| \ | |/ ____|/ __ \                                 |_   _|          | |         | |     	-->
+<!-- 	| |  | |  \| | (___ | |  | |_   _  ___ _ __ _   _   ______    | |  _ __   ___| |_   _  __| | ___ 	-->
+<!-- 	| |  | | . ` |\___ \| |  | | | | |/ _ \ '__| | | | |______|   | | | '_ \ / __| | | | |/ _` |/ _ \	-->
+<!-- 	| |__| | |\  |____) | |__| | |_| |  __/ |  | |_| |           _| |_| | | | (__| | |_| | (_| |  __/	-->
+<!-- 	|_____/|_| \_|_____/ \___\_\\__,_|\___|_|   \__, |          |_____|_| |_|\___|_|\__,_|\__,_|\___|	-->
+<!--                                                 __/ |                                               	-->
+<!--                                                |___/                                                   -->
+
+		<RuleGroup name="Info=DNSQuery Include Group" groupRelation="or">
+			<DnsQuery onmatch="include">
+				<Rule name="MitreRef=T1071.004,Technique=Application Layer Protocol: DNS,Tactic=Command and Control,Alert=DNS explotation found" groupRelation="and">
+					<Image condition="end with">SysmonSimulator.exe</Image>
+				</Rule>
+			</DnsQuery>
+		</RuleGroup>
+
+<!-- 	 _____  _   _  _____  ____                                   ______          _           _     		--> 
+<!-- 	|  __ \| \ | |/ ____|/ __ \                                 |  ____|        | |         | |     	-->
+<!-- 	| |  | |  \| | (___ | |  | |_   _  ___ _ __ _   _   ______  | |__  __  _____| |_   _  __| | ___ 	-->
+<!-- 	| |  | | . ` |\___ \| |  | | | | |/ _ \ '__| | | | |______| |  __| \ \/ / __| | | | |/ _` |/ _ \	-->
+<!-- 	| |__| | |\  |____) | |__| | |_| |  __/ |  | |_| |          | |____ >  < (__| | |_| | (_| |  __/	-->
+<!-- 	|_____/|_| \_|_____/ \___\_\\__,_|\___|_|   \__, |          |______/_/\_\___|_|\__,_|\__,_|\___|	-->
+<!-- 	                                             __/ |                                              	-->
+<!-- 	                                            |___/                                               	-->
+
+		<RuleGroup name="Info=DNSQuery Exclude Group" groupRelation="or">
+			<DnsQuery onmatch="exclude">
+			
+			</DnsQuery>
+		</RuleGroup>
+		
+<!-- 	 ______ _ _      _____       _      _                  _____            _           _      		-->
+<!-- 	|  ____(_) |    |  __ \     | |    | |                |_   _|          | |         | |     		-->
+<!-- 	| |__   _| | ___| |  | | ___| | ___| |_ ___   ______    | |  _ __   ___| |_   _  __| | ___ 		-->
+<!-- 	|  __| | | |/ _ \ |  | |/ _ \ |/ _ \ __/ _ \ |______|   | | | '_ \ / __| | | | |/ _` |/ _ \		-->
+<!-- 	| |    | | |  __/ |__| |  __/ |  __/ ||  __/           _| |_| | | | (__| | |_| | (_| |  __/		-->
+<!-- 	|_|    |_|_|\___|_____/ \___|_|\___|\__\___|          |_____|_| |_|\___|_|\__,_|\__,_|\___|		-->
+
+		<RuleGroup name="Info=FileDelete Include Group" groupRelation="or">
+			<FileDelete onmatch="include">
+				<Rule name="MitreRef=T1485,Technique=Data Destruction,Tactic=Impact,Alert=Program Deleted Inusual File, rf=y" groupRelation="and">
+					<Image condition="end with">SysmonSimulator.exe</Image>
+					<TargetFilename condition="end with">NewFile.bat</TargetFilename>
+					<Archived condition="begin with">true</Archived>
+				</Rule>
+				
+				<Rule name="MitreRef=T1485,Technique=Data Destruction,Tactic=Impact,Alert=Program Deleted Inusual File, rf=y" groupRelation="and">
+					<TargetFilename condition="end with">test.txt</TargetFilename>
+				</Rule>
+			</FileDelete>
+		</RuleGroup>
+
+<!-- 	 ______ _ _      _____       _      _                  ______          _           _      		-->
+<!-- 	|  ____(_) |    |  __ \     | |    | |                |  ____|        | |         | |     		-->
+<!-- 	| |__   _| | ___| |  | | ___| | ___| |_ ___   ______  | |__  __  _____| |_   _  __| | ___ 		-->
+<!-- 	|  __| | | |/ _ \ |  | |/ _ \ |/ _ \ __/ _ \ |______| |  __| \ \/ / __| | | | |/ _` |/ _ \		-->
+<!-- 	| |    | | |  __/ |__| |  __/ |  __/ ||  __/          | |____ >  < (__| | |_| | (_| |  __/		-->
+<!-- 	|_|    |_|_|\___|_____/ \___|_|\___|\__\___|          |______/_/\_\___|_|\__,_|\__,_|\___|		-->
+
+		<RuleGroup name="Info=FileDelete Exclude Group" groupRelation="or">
+			<FileDelete onmatch="exclude">
+			
+			</FileDelete>
+		</RuleGroup>
+
+<!--  	  _____ _ _       _                         _  _____ _                                       _____            _           _      	-->
+<!--  	 / ____| (_)     | |                       | |/ ____| |                                     |_   _|          | |         | |     	-->
+<!-- 	| |    | |_ _ __ | |__   ___   __ _ _ __ __| | |    | |__   __ _ _ __   __ _  ___   ______    | |  _ __   ___| |_   _  __| | ___ 	-->
+<!-- 	| |    | | | '_ \| '_ \ / _ \ / _` | '__/ _` | |    | '_ \ / _` | '_ \ / _` |/ _ \ |______|   | | | '_ \ / __| | | | |/ _` |/ _ \	-->
+<!-- 	| |____| | | |_) | |_) | (_) | (_| | | | (_| | |____| | | | (_| | | | | (_| |  __/           _| |_| | | | (__| | |_| | (_| |  __/	-->
+<!--  	 \_____|_|_| .__/|_.__/ \___/ \__,_|_|  \__,_|\_____|_| |_|\__,_|_| |_|\__, |\___|          |_____|_| |_|\___|_|\__,_|\__,_|\___|	-->
+<!--  	           | |                                                          __/ |                                                    	-->
+<!--  	           |_|                                                         |___/                                                     	-->
+
+		<RuleGroup groupRelation="or">
+			<ClipboardChange onmatch="include">
+				<Rule name="MitreRef=T1115,Technique=Clipboard Data,Tactic=Collection,Alert=Program modified Clipboard" groupRelation="and">
+					<Image condition="end with">SysmonSimulator.exe</Image>
+				</Rule>
+			</ClipboardChange>
+		</RuleGroup>
+		
+<!--   	  _____ _ _       _                         _  _____ _                                       ______          _           _      	-->
+<!--  	 / ____| (_)     | |                       | |/ ____| |                                     |  ____|        | |         | |     	-->
+<!-- 	| |    | |_ _ __ | |__   ___   __ _ _ __ __| | |    | |__   __ _ _ __   __ _  ___   ______  | |__  __  _____| |_   _  __| | ___ 	-->
+<!-- 	| |    | | | '_ \| '_ \ / _ \ / _` | '__/ _` | |    | '_ \ / _` | '_ \ / _` |/ _ \ |______| |  __| \ \/ / __| | | | |/ _` |/ _ \	-->
+<!-- 	| |____| | | |_) | |_) | (_) | (_| | | | (_| | |____| | | | (_| | | | | (_| |  __/          | |____ >  < (__| | |_| | (_| |  __/	-->
+<!--  	 \_____|_|_| .__/|_.__/ \___/ \__,_|_|  \__,_|\_____|_| |_|\__,_|_| |_|\__, |\___|          |______/_/\_\___|_|\__,_|\__,_|\___|	-->
+<!--  	           | |                                                          __/ |                                                   	-->
+<!--  	           |_|                                                         |___/                                                    	-->
+
+		<RuleGroup name="Info=ClipboardChange Exclude Group" groupRelation="or">
+			<ClipboardChange onmatch="exclude">
+			
+			</ClipboardChange>
+		</RuleGroup>
+		
+<!-- 	 _____                          _______                              _                        _____            _           _      		-->
+<!-- 	|  __ \                        |__   __|                            (_)                      |_   _|          | |         | |     		-->
+<!-- 	| |__) | __ ___   ___ ___  ___ ___| | __ _ _ __ ___  _ __   ___ _ __ _ _ __   __ _   ______    | |  _ __   ___| |_   _  __| | ___ 		-->
+<!-- 	|  ___/ '__/ _ \ / __/ _ \/ __/ __| |/ _` | '_ ` _ \| '_ \ / _ \ '__| | '_ \ / _` | |______|   | | | '_ \ / __| | | | |/ _` |/ _ \		-->
+<!-- 	| |   | | | (_) | (_|  __/\__ \__ \ | (_| | | | | | | |_) |  __/ |  | | | | | (_| |           _| |_| | | | (__| | |_| | (_| |  __/		-->
+<!-- 	|_|   |_|  \___/ \___\___||___/___/_|\__,_|_| |_| |_| .__/ \___|_|  |_|_| |_|\__, |          |_____|_| |_|\___|_|\__,_|\__,_|\___|		-->
+<!-- 	                                                    | |                       __/ |                                               		-->
+<!-- 	                                                    |_|                      |___/                                                		-->
+
+		<RuleGroup name="Info=ProcessTampering Include Group" groupRelation="or">
+			<ProcessTampering onmatch="include">
+				<Rule name="MitreRef=T1055.012,Technique=Process Injection: Process Hollowing,Tactic=Defense Evasion Privilege Escalation,Alert=Process Hollowing Detected" groupRelation="and">
+					<Image condition="end with">cmd.exe</Image>
+				</Rule>
+			</ProcessTampering>
+		</RuleGroup>
+		
+<!-- 	 _____                          _______                              _                        ______          _           _      		-->
+<!-- 	|  __ \                        |__   __|                            (_)                      |  ____|        | |         | |     		-->
+<!-- 	| |__) | __ ___   ___ ___  ___ ___| | __ _ _ __ ___  _ __   ___ _ __ _ _ __   __ _   ______  | |__  __  _____| |_   _  __| | ___ 		-->
+<!-- 	|  ___/ '__/ _ \ / __/ _ \/ __/ __| |/ _` | '_ ` _ \| '_ \ / _ \ '__| | '_ \ / _` | |______| |  __| \ \/ / __| | | | |/ _` |/ _ \		-->
+<!-- 	| |   | | | (_) | (_|  __/\__ \__ \ | (_| | | | | | | |_) |  __/ |  | | | | | (_| |          | |____ >  < (__| | |_| | (_| |  __/		-->
+<!-- 	|_|   |_|  \___/ \___\___||___/___/_|\__,_|_| |_| |_| .__/ \___|_|  |_|_| |_|\__, |          |______/_/\_\___|_|\__,_|\__,_|\___|		-->
+<!-- 	                                                    | |                       __/ |                                              		-->
+<!-- 	                                                    |_|                      |___/                                               		-->
+
+		<RuleGroup name="Info=ProcessTampering Exclude Group" groupRelation="or">
+			<ProcessTampering onmatch="exclude">
+			
+			</ProcessTampering>
+		</RuleGroup>
+
+<!-- 	 ______ _ _      _____       _      _       _____       _            _           _            _____            _           _      		-->
+<!-- 	|  ____(_) |    |  __ \     | |    | |     |  __ \     | |          | |         | |          |_   _|          | |         | |     		-->
+<!-- 	| |__   _| | ___| |  | | ___| | ___| |_ ___| |  | | ___| |_ ___  ___| |_ ___  __| |  ______    | |  _ __   ___| |_   _  __| | ___ 		-->
+<!-- 	|  __| | | |/ _ \ |  | |/ _ \ |/ _ \ __/ _ \ |  | |/ _ \ __/ _ \/ __| __/ _ \/ _` | |______|   | | | '_ \ / __| | | | |/ _` |/ _ \		-->
+<!-- 	| |    | | |  __/ |__| |  __/ |  __/ ||  __/ |__| |  __/ ||  __/ (__| ||  __/ (_| |           _| |_| | | | (__| | |_| | (_| |  __/		-->
+<!-- 	|_|    |_|_|\___|_____/ \___|_|\___|\__\___|_____/ \___|\__\___|\___|\__\___|\__,_|          |_____|_| |_|\___|_|\__,_|\__,_|\___|		-->
+
+		<RuleGroup name="Info=FileDeleteDetected Include Group" groupRelation="or">
+			<FileDeleteDetected onmatch="include">
+				<!--<Rule name="MitreRef=T1485,Technique=Data Destruction,Tactic=Impact,Alert=Program Deleted Inusual File" groupRelation="and">
+					<Image condition="end with">SysmonSimulator.exe</Image>
+					<TargetFilename condition="end with">NewFile.bat</TargetFilename>
+				</Rule>-->
+			</FileDeleteDetected>
+		</RuleGroup>
+
+<!--  ______ _ _      _____       _      _       _____       _            _           _            ______          _           _      		-->
+<!-- |  ____(_) |    |  __ \     | |    | |     |  __ \     | |          | |         | |          |  ____|        | |         | |     		-->
+<!-- | |__   _| | ___| |  | | ___| | ___| |_ ___| |  | | ___| |_ ___  ___| |_ ___  __| |  ______  | |__  __  _____| |_   _  __| | ___ 		-->
+<!-- |  __| | | |/ _ \ |  | |/ _ \ |/ _ \ __/ _ \ |  | |/ _ \ __/ _ \/ __| __/ _ \/ _` | |______| |  __| \ \/ / __| | | | |/ _` |/ _ \		-->
+<!-- | |    | | |  __/ |__| |  __/ |  __/ ||  __/ |__| |  __/ ||  __/ (__| ||  __/ (_| |          | |____ >  < (__| | |_| | (_| |  __/		-->
+<!-- |_|    |_|_|\___|_____/ \___|_|\___|\__\___|_____/ \___|\__\___|\___|\__\___|\__,_|          |______/_/\_\___|_|\__,_|\__,_|\___|		-->
+
+		<RuleGroup name="Info=FileDeleteDetected Exclude Group" groupRelation="or">
+			<FileDeleteDetected onmatch="exclude">
+			
+			</FileDeleteDetected>
+		</RuleGroup>
+		
+<!-- 	 ______ _ _      ____  _            _    ______                     _        _     _                 _____            _           _      	-->
+<!-- 	|  ____(_) |    |  _ \| |          | |  |  ____|                   | |      | |   | |               |_   _|          | |         | |     	-->
+<!-- 	| |__   _| | ___| |_) | | ___   ___| | _| |__  __  _____  ___ _   _| |_ __ _| |__ | | ___   ______    | |  _ __   ___| |_   _  __| | ___ 	-->
+<!-- 	|  __| | | |/ _ \  _ <| |/ _ \ / __| |/ /  __| \ \/ / _ \/ __| | | | __/ _` | '_ \| |/ _ \ |______|   | | | '_ \ / __| | | | |/ _` |/ _ \	-->
+<!-- 	| |    | | |  __/ |_) | | (_) | (__|   <| |____ >  <  __/ (__| |_| | || (_| | |_) | |  __/           _| |_| | | | (__| | |_| | (_| |  __/	-->
+<!-- 	|_|    |_|_|\___|____/|_|\___/ \___|_|\_\______/_/\_\___|\___|\__,_|\__\__,_|_.__/|_|\___|          |_____|_| |_|\___|_|\__,_|\__,_|\___|	
+
+		<RuleGroup name="Info=FileBlockExecutable Include Group" groupRelation="or">
+			<FileBlockExecutable onmatch="include">
+			
+			</FileBlockExecutable>
+		</RuleGroup> -->
+
+<!-- 	 ______ _ _      ____  _            _    ______                     _        _     _                 ______          _           _      	-->
+<!-- 	|  ____(_) |    |  _ \| |          | |  |  ____|                   | |      | |   | |               |  ____|        | |         | |     	-->
+<!-- 	| |__   _| | ___| |_) | | ___   ___| | _| |__  __  _____  ___ _   _| |_ __ _| |__ | | ___   ______  | |__  __  _____| |_   _  __| | ___ 	-->
+<!-- 	|  __| | | |/ _ \  _ <| |/ _ \ / __| |/ /  __| \ \/ / _ \/ __| | | | __/ _` | '_ \| |/ _ \ |______| |  __| \ \/ / __| | | | |/ _` |/ _ \	-->
+<!-- 	| |    | | |  __/ |_) | | (_) | (__|   <| |____ >  <  __/ (__| |_| | || (_| | |_) | |  __/          | |____ >  < (__| | |_| | (_| |  __/	-->
+<!-- 	|_|    |_|_|\___|____/|_|\___/ \___|_|\_\______/_/\_\___|\___|\__,_|\__\__,_|_.__/|_|\___|          |______/_/\_\___|_|\__,_|\__,_|\___|	
+
+		<RuleGroup name="Info=FileBlockExecutable Exclude Group" groupRelation="or">
+			<FileBlockExecutable onmatch="exclude">
+			
+			</FileBlockExecutable>
+		</RuleGroup>           -->                                                                                                                               		
+		
+	</EventFiltering>
+</Sysmon>
