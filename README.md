@@ -12,7 +12,7 @@
   
   ## What is this project?
   
-**P-EDR Arch** is a free and _open-source_ personal solution which focus is to be used in small and medium companies. It provides high flexibility, integration with new technologies and configurability. 
+**P-EDR Arch** is a free and _open-source_ personal solution which focus is to be used in small and medium enterprises (SRE). It provides high flexibility, integration with new technologies and configurability. 
   
 It uses a set of technologies from known brands and projects, like _Microsoft_ and _TheHive Project_, which are in constant updating, so it means that this architecture provides an extremely long product life-cycle.
   
@@ -28,11 +28,36 @@ P-EDR Arch provides all the tools needed with the purpose of implementing an EDR
 
  # Features
  
- - Free and _open-source_ EDR for _Windows_
- - Detection to events via _Sysmon_ rules
- - Active response to events via _self-script_
- - Send data from all _endpoints_ to centralized _Kibana_ instance
- - Generate alerts from _Kibana_ to _TheHive_
- - Obtain more information from attacks thanks to _Cortex_
- - Share information about an attack from your SOC to other companies via _MISP_
- - Everything in the provided architecture can be modified to gratify company's interests
+ - Free and _open-source_ EDR for _Windows_.
+ - Detection to events via _Sysmon_ rules.
+ - Active response to events via _self-script_.
+ - Send data from all _endpoints_ to centralized _Kibana_ instance.
+ - Generate alerts from _Kibana_ to _TheHive_.
+ - Obtain more information from attacks thanks to _Cortex_.
+ - Share information about an attack from your SOC to other companies via _MISP_.
+ - Everything in the provided architecture can be modified to gratify company's interests.
+	
+# What it uses?
+ - _Sysmon_, for detecting threats.
+ - _PS script_, for active response.
+ - _YARA rules_, for file/executable analysis.
+ - Quarantine folder with ACL protection, for malicious files deleted by the system and legitimate files deleted by malicious files.
+ - _Winlogbeat_, for sharing event data.
+ - _Elasticsearch_, for storing events data.
+ - _Kibana_, for checking events registered.
+ - _Elastalert_, for generating alerts to sharing incident response platform (SOC).
+ - _TheHive_, for registering alerts and SOC analysis.
+ - _Cortex_, for producing extra informating related to alert's observables (IP, hashes, etc).
+ - _MISP_, for sharing _malware_ information with other enterprises.
+
+**Every single element is _open-source_ and can be hand-configured**.
+
+# How it works
+ 
+ <p align="center">
+	<img src="./doc/img/edr_endpoint_solution.png" alt="edr_endpoint"
+ </p>
+ 
+ <p align="center">
+ 	<img src="./doc/img/p-edr-arch_architecture.png" alt="p-edr-arch"
+ </p>
