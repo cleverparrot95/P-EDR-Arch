@@ -61,3 +61,12 @@ P-EDR Arch provides all the tools needed with the purpose of implementing an EDR
  <p align="center">
  	<img src="./doc/img/p-edr-arch_architecture.png" alt="p-edr-arch"
  </p>
+ 
+ **NB:** These are the mandatory components for the purpose of the EDR to work, which means the architecture is highly flexible (e.g: adding _Cuckoo_ to the _endpoint_ part for sandboxing tasks).
+
+# Related work
+
+- _Sysmon X_: https://github.com/marcosd4h/sysmonx
+- _Comodo Open Source EDR_ with user and kernel components: https://github.com/ComodoSecurity/openedr
+- _Whids_ Open Source _EDR_ for _Windows_: https://github.com/0xrawsec/whids
+- _Sysmon_ based EDR written in _Powershell_ (and main inspiration for this project): https://github.com/ion-storm/sysmon-edr
